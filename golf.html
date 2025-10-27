@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwingBro - The Future of Golf</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        /* Use Inter font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom scrollbar for chat */
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        #chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* View transition helper */
+        .view {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .view.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Active nav link style */
+        .nav-link.active {
+            color: #059669; /* emerald-600 */
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-3xl font-bold text-emerald-700 nav-link" data-target="home">
+                SwingBro
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link active" data-target="home">Home</a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="about">About Us</a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="products">Products</a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="services">Services</a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="marketplace">Marketplace</a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="community">Community</a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="contact">Contact</a>
+                <a href="#" class="bg-emerald-600 text-white px-4 py-2 rounded-full hover:bg-emerald-700 transition duration-300">
+                    Wholesale
+                </a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 relative nav-link" data-target="cart">
+                    <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                    <span class="cart-count absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link active" data-target="home">Home</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="about">About Us</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="products">Products</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="services">Services</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="marketplace">Marketplace</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="community">Community</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="contact">Contact</a>
+            <a href="#" class="block px-4 py-3 text-emerald-600 font-semibold hover:bg-gray-100">Wholesale</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 relative nav-link" data-target="cart">
+                <i data-lucide="shopping-cart" class="inline-block w-5 h-5 mr-2"></i> Cart
+                <span class="cart-count absolute top-2 right-4 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        
+        <!-- Section: Home -->
+        <section id="home" class="view active">
+            <!-- Hero Section -->
+            <div class="relative bg-gradient-to-r from-emerald-800 to-green-800 text-white overflow-hidden">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 text-center md:text-left">
+                        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
+                            Swing Like a Pro.
+                        </h1>
+                        <p class="text-lg md:text-xl text-emerald-100 mb-8">
+                            Stop guessing. Start feeling. Get instant haptic feedback to build a consistent swing from your very first day.
+                        </p>
+                        <a href="#" class="bg-white text-emerald-700 font-bold px-8 py-3 rounded-full text-lg hover:bg-emerald-50 transition duration-300 nav-link" data-target="products">
+                            Get Your Glove
+                        </a>
+                    </div>
+                    <div class="md:w-1/2 mt-12 md:mt-0">
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace this with a high-quality product shot of the SwingBro glove, 
+                          ideally showing the sensor. (e.g., src="images/hero-glove.jpg")
+                        -->
+                        <img src="Gemini_Generated_Image_hbl3q5hbl3q5hbl3.png" alt="SwingBro Sensor Glove" class="rounded-lg shadow-2xl mx-auto">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="py-16 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-12">
+                        The Beginner's Secret Weapon
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div class="feature-item">
+                            <i data-lucide="activity" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2">Real-time Haptic Feedback</h3>
+                            <p class="text-gray-600">
+                                Feel instant, subtle corrections. A buzz for a rushed tempo, a vibration for an open clubface.
+                            </p>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="hand-heart" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2">Learn by Feel, Not Stats</h3>
+                            <p class="text-gray-600">
+                                Forget confusing data. Our glove helps beginners build muscle memory and confidence.
+                            </p>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="bar-chart-3" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2">Simple Session Summaries</h3>
+                            <p class="text-gray-600">
+                                Track your progress with simple charts for swing tempo and consistency in the SwingBro app.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: About Us -->
+        <section id="about" class="view py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-8">
+                        Our Vision: Expanding the Game
+                    </h2>
+                    <div class="prose prose-lg max-w-none text-gray-700 space-y-6">
+                        <p class="text-xl font-semibold text-gray-900">
+                            SwingBro doesn't just compete within the golf tech market; we expand it.
+                        </p>
+                        <p>
+                            While competitors sell complex data analytics to seasoned players, SwingBro targets beginners, helping them enter the world of golf with confidence. We sell instant, intuitive learning feedback: no complicated stats, no complex set-up, just feel.
+                        </p>
+                        <p>
+                            Our long-term vision is to significantly enhance the accessibility and data-driven nature of golf for both novice and experienced players. Currently, golf improvement often relies on costly coaching and limited access to experienced instructors. Our product, SwingBro, eliminates this barrier by integrating coaching intelligence directly into the glove.
+                        </p>
+                        <p>
+                            SwingBro continuously learns from the player’s swing patterns over time. As the player engages in more practice, the device becomes more personalised, providing tailored feedback and improvement cues rather than generic instruction. For newcomers, this enables affordable, real-time guidance without the need for a trainer; for established players, it offers a silent coach that refines tempo and consistency between lessons and on the course.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Our Team Subsection -->
+                <div id="team" class="mt-20">
+                    <h2 class="text-center text-3xl font-bold text-gray-900 mb-12">
+                        Meet the SwingBro Team
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Team Member Card -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                            <!-- 
+                              IMAGE PLACEHOLDER: 
+                              Replace with a headshot of Alessandro Zavi. (e.g., src="images/team/alessandro.jpg")
+                            -->
+                            <img src="IMG_8219_i31ockip76zi.JPG" alt="Alessandro Zavi" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
+                            <h3 class="text-xl font-semibold text-gray-900">Alessandro Zavi</h3>
+                            <p class="text-emerald-700 font-medium mb-2">Public Speaking & Relations</p>
+                            <p class="text-gray-600 text-sm">Ideation, macroeconomics</p>
+                        </div>
+                        <!-- Team Member Card -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                            <!-- 
+                              IMAGE PLACEHOLDER: 
+                              Replace with a headshot of Leonardo Dell'Orfanello. (e.g., src="images/team/leonardo.jpg")
+                            -->
+                            <img src="IMG_6792_uddu7w3wafvc.jpeg" alt="Leonardo Dell'Orfanello" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
+                            <h3 class="text-xl font-semibold text-gray-900">Leonardo Dell'Orfanello</h3>
+                            <p class="text-emerald-700 font-medium mb-2">Financial Analyst</p>
+                            <p class="text-gray-600 text-sm">Pricing specialist</p>
+                        </div>
+                        <!-- Team Member Card -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                            <!-- 
+                              IMAGE PLACEHOLDER: 
+                              Replace with a headshot of Lucio Goglia. (e.g., src="images/team/lucio.jpg")
+                            -->
+                            <img src="WhatsApp Image 2025-10-24 at 09.26.33.jpeg" alt="Lucio Goglia" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
+                            <h3 class="text-xl font-semibold text-gray-900">Lucio Goglia</h3>
+                            <p class="text-emerald-700 font-medium mb-2">Data Interpretation</p>
+                            <p class="text-gray-600 text-sm">Data Extrapolation, Fintech</p>
+                        </div>
+                        <!-- Team Member Card -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                            <!-- 
+                              IMAGE PLACEHOLDER: 
+                              Replace with a headshot of Thomas Belledent. (e.g., src="images/team/thomas.jpg")
+                            -->
+                            <img src="IMG_8918_yz3ki7xh7jcf.PNG" alt="Thomas Belledent" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
+                            <h3 class="text-xl font-semibold text-gray-900">Thomas Belledent</h3>
+                            <p class="text-emerald-700 font-medium mb-2">Market Research</p>
+                            <p class="text-gray-600 text-sm">Consumer Insight & microeconomics</p>
+                        </div>
+                        <!-- Team Member Card -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                            <!-- 
+                              IMAGE PLACEHOLDER: 
+                              Replace with a headshot of Anastasia Cotella. (e.g., src="images/team/anastasia.jpg")
+                            -->
+                            <img src="foto_digitale_syq7zf91a6v4.jpg" alt="Anastasia Cotella" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
+                            <h3 class="text-xl font-semibold text-gray-900">Anastasia Cotella</h3>
+                            <p class="text-emerald-700 font-medium mb-2">Data Analysis</p>
+                            <p class="text-gray-600 text-sm">Golf Specialist, Idea Incubator</p>
+                        </div>
+                        <!-- Team Member Card -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                            <!-- 
+                              IMAGE PLACEHOLDER: 
+                              Replace with a headshot of Anusha Rao. (e.g., src="images/team/anusha.jpg")
+                            -->
+                            <img src="51f3bf07_7fdb_4407_8437_abe55f04103e_io660i1k7ssh.jpeg" alt="Anusha Rao" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
+                            <h3 class="text-xl font-semibold text-gray-900">Anusha Rao</h3>
+                            <p class="text-emerald-700 font-medium mb-2">Engineering & AI</p>
+                            <p class="text-gray-600 text-sm">Computer Science, AI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Products -->
+        <section id="products" class="view py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-12">
+                    Our Products
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Product Card 1 -->
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace with a product shot of the SwingBro Sensor by itself. (e.g., src="images/products/sensor.jpg")
+                        -->
+                        <img src="unnamed (1).jpg" alt="SwingBro Sensor" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro Sensor (Replacement)</h3>
+                            <p class="text-gray-600 text-sm mb-4">A replacement AI sensor for your SwingBro glove.</p>
+                            <p class="text-3xl font-bold text-gray-900 mb-4">€29.99</p>
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro Sensor (Replacement)" data-product-price="29.99">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Product Card 2 -->
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace with a product shot of the SwingBro Glove by itself (no sensor). (e.g., src="images/products/glove.jpg")
+                        -->
+                        <img src="unnamed (2).jpg" alt="SwingBro Glove" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro Glove (Replacement)</h3>
+                            <p class="text-gray-600 text-sm mb-4">Premium cabretta leather glove, sensor-ready. (Glove only)</p>
+                            <p class="text-3xl font-bold text-gray-900 mb-4">€14.99</p>
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro Glove (Replacement)" data-product-price="14.99">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Product Card 3 -->
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col border-4 border-emerald-500 relative">
+                        <span class="absolute top-0 left-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-br-lg">BEST VALUE</span>
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace with a product shot of the Combo Pack (Glove + Sensor). (e.g., src="images/products/combo.jpg")
+                        -->
+                        <img src="unnamed (3).jpg" alt="SwingBro Combo" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro Combo Pack</h3>
+                            <p class="text-gray-600 text-sm mb-4">Get the Sensor and Glove together. This is the complete kit!</p>
+                            <p class="text-3xl font-bold text-gray-900 mb-4">€39.99</p>
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro Combo Pack" data-product-price="39.99">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Product Card 4 -->
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace with a lifestyle image or screenshot of the SwingBro App. (e.g., src="images/products/app-screenshot.jpg")
+                        -->
+                        <img src="unnamed (4).jpg" alt="SwingBro App" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro App (Pro Tier)</h3>
+                            <p class="text-gray-600 text-sm mb-4">Unlock Session Summaries, Swing Ratio Warnings, and Achievements.</p>
+                            <p class="text-3xl font-bold text-gray-900 mb-4">€2.99/mo</p>
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro App (Pro Tier)" data-product-price="2.99">
+                                Subscribe
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Services (Repair & Replacement) -->
+        <section id="services" class="view py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+                    <h2 class="text-center text-3xl font-bold text-gray-900 mb-2">
+                        Repairs & Replacements
+                    </h2>
+                    <p class="text-center text-gray-600 mb-8">
+                        Worn out your glove or damaged a sensor? We've got you covered.
+                    </p>
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="repair-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="repair-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="repair-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="repair-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="order-id" class="block text-sm font-medium text-gray-700 mb-1">Order ID (if known)</label>
+                            <input type="text" id="order-id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="#SB12345">
+                        </div>
+                        <div class="mb-6">
+                            <label for="repair-issue" class="block text-sm font-medium text-gray-700 mb-1">Describe your issue</label>
+                            <textarea id="repair-issue" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="My glove has a tear near the thumb..."></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="w-full md:w-auto bg-emerald-600 text-white px-10 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300">
+                                Submit Repair Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Second-hand Marketplace -->
+        <section id="marketplace" class="view py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-4">
+                    SwingBro Certified Refurbished
+                </h2>
+                <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                    Second-hand, first-class quality. All items are fully repaired, tested, and backed by a 90-day warranty.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Refurbished Item -->
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace with a shot of the refurbished sensor. (e.g., src="images/refurb/sensor.jpg")
+                        -->
+                        <img src="unnamed (5).jpg" alt="Refurbished Sensor" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Refurbished Sensor (Grade A)</h3>
+                            <p class="text-gray-600 text-sm mb-4">Like-new condition. Fully tested and functional.</p>
+                            <div class="flex items-baseline mb-4">
+                                <p class="text-3xl font-bold text-gray-900">€20.99</p>
+                                <p class="text-gray-500 line-through ml-2">€29.99</p>
+                            </div>
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="Refurbished Sensor (Grade A)" data-product-price="20.99">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Refurbished Item -->
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace with a shot of the refurbished glove. (e.g., src="images/refurb/glove.jpg")
+                        -->
+                        <img src="unnamed (6).jpg" alt="Refurbished Glove" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Refurbished Glove (Grade B)</h3>
+                            <p class="text-gray-600 text-sm mb-4">Minor cosmetic wear, fully functional sensor pocket.</p>
+                            <div class="flex items-baseline mb-4">
+                                <p class="text-3xl font-bold text-gray-900">€9.99</p>
+                                <p class="text-gray-500 line-through ml-2">€14.99</p>
+                            </div>
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="Refurbished Glove (Grade B)" data-product-price="9.99">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Refurbished Item -->
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <!-- 
+                          IMAGE PLACEHOLDER: 
+                          Replace with a shot of the refurbished combo pack. (e.g., src="images/refurb/combo.jpg")
+                        -->
+                        <img src="unnamed (7).jpg" alt="Refurbished Combo" class="w-full h-48 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Refurbished Combo Pack</h3>
+                            <p class="text-gray-600 text-sm mb-4">Sensor and Glove. Fully tested and warrantied.</p>
+                            <div class="flex items-baseline mb-4">
+                                <p class="text-3xl font-bold text-gray-900">€17.99</p>
+                                <p class="text-gray-500 line-through ml-2">€39.99</p>
+                            </div>
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="Refurbished Combo Pack" data-product-price="27.99">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Cart -->
+        <section id="cart" class="view py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-12">
+                    Your Shopping Cart
+                </h2>
+                <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+                    <div id="cart-items-container" class="mb-6">
+                        <!-- Cart items will be injected here by JS -->
+                    </div>
+                    <div id="cart-summary" class="border-t pt-6">
+                        <div class="flex justify-between items-center text-2xl font-bold mb-6">
+                            <span>Total:</span>
+                            <span id="cart-total">€0.00</span>
+                        </div>
+                        <button class="w-full bg-emerald-600 text-white px-10 py-3 rounded-lg font-semibold text-lg hover:bg-emerald-700 transition duration-300">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                    <div id="cart-empty-message" class="text-center text-gray-500 py-8 hidden">
+                        <p>Your cart is empty.</p>
+                        <a href="#" class="text-emerald-600 font-semibold hover:underline nav-link" data-target="products">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Community -->
+        <section id="community" class="view py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-4">
+                    Join the SwingBro Community
+                </h2>
+                <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                    Share your progress, get tips, and connect with fellow golfers.
+                </p>
+                
+                <!-- Community Features -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                    <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                        <i data-lucide="message-square" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Community Forums</h3>
+                        <p class="text-gray-600">
+                            Discuss gear, courses, and strategy with other SwingBro users.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                        <i data-lucide="video" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Share Your Swings</h3>
+                        <p class="text-gray-600">
+                            Upload videos for feedback from peers and our certified coaches.
+                        </p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                        <i data-lucide="trophy" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Monthly Challenges</h3>
+                        <p class="text-gray-600">
+                            Compete in swing tempo or consistency challenges for prizes.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Latest Threads Subsection -->
+                <div class="mt-20">
+                    <h2 class="text-center text-3xl font-bold text-gray-900 mb-12">
+                        Latest Community Threads
+                    </h2>
+                    <div class="max-w-4xl mx-auto space-y-6">
+                        
+                        <!-- Thread 1 (With Image) -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex">
+                            <!-- Votes -->
+                            <div class="flex flex-col items-center justify-start bg-gray-100 p-4">
+                                <button class="text-gray-600 hover:text-emerald-600" title="Upvote">
+                                    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                                </button>
+                                <span class="text-lg font-bold text-emerald-700 my-1">128</span>
+                                <button class="text-gray-600 hover:text-red-500" title="Downvote">
+                                    <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            <!-- Content -->
+                            <div class="p-6 flex-grow">
+                                <p class="text-sm text-gray-500 mb-1">
+                                    Posted by <a href="#" class="font-semibold text-emerald-700 hover:underline">@GolfGuru88</a> · 8 hours ago
+                                </p>
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-emerald-700 cursor-pointer">
+                                    My SwingBro app summary after 1 month - check this out!
+                                </h3>
+                                <div class="my-4">
+                                    <!-- 
+                                      IMAGE PLACEHOLDER: 
+                                      Replace with a user-submitted image, e.g., a screenshot of the app's tempo chart. (e.g., src="images/community/thread1.jpg")
+                                    -->
+                                    <img src="unnamed (8).jpg" alt="Swing data chart" class="rounded-lg w-full h-auto object-cover border">
+                                </div>
+                                <p class="text-gray-700 mb-4">
+                                    Been grinding with the app for 30 days. The haptic feedback on my takeaway has been a game-changer. Look at my tempo consistency! Never been this steady...
+                                </p>
+                                <div class="flex items-center space-x-6 text-gray-500 font-medium text-sm">
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="message-square" class="w-4 h-4"></i> 
+                                        <span>42 Comments</span>
+                                    </a>
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="share-2" class="w-4 h-4"></i> 
+                                        <span>Share</span>
+                                    </a>
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="bookmark" class="w-4 h-4"></i> 
+                                        <span>Save</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thread 2 (Text Only) -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex">
+                            <!-- Votes -->
+                            <div class="flex flex-col items-center justify-start bg-gray-100 p-4">
+                                <button class="text-gray-600 hover:text-emerald-600" title="Upvote">
+                                    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                                </button>
+                                <span class="text-lg font-bold text-emerald-700 my-1">47</span>
+                                <button class="text-gray-600 hover:text-red-500" title="Downvote">
+                                    <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            <!-- Content -->
+                            <div class="p-6 flex-grow">
+                                <p class="text-sm text-gray-500 mb-1">
+                                    Posted by <a href="#" class="font-semibold text-emerald-700 hover:underline">@SliceNoMore</a> · 1 day ago
+                                </p>
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-emerald-700 cursor-pointer">
+                                    Finally fixing my swing rhythm!
+                                </h3>
+                                <p class="text-gray-700 mb-4">
+                                    My tempo has been all over the place for years. The haptic buzz when I rush my backswing is... annoying, but it's working! My rhythm is so much smoother and I'm not slicing as much. Anyone else find the 3:1 ratio drill helpful?
+                                </p>
+                                <div class="flex items-center space-x-6 text-gray-500 font-medium text-sm">
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="message-square" class="w-4 h-4"></i> 
+                                        <span>88 Comments</span>
+                                    </a>
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="share-2" class="w-4 h-4"></i> 
+                                        <span>Share</span>
+                                    </a>
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="bookmark" class="w-4 h-4"></i> 
+                                        <span>Save</span>
+                                    </a>
+                                all
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thread 3 (With Image) -->
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden flex">
+                            <!-- Votes -->
+                            <div class="flex flex-col items-center justify-start bg-gray-100 p-4">
+                                <button class="text-gray-600 hover:text-emerald-600" title="Upvote">
+                                    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+                                </button>
+                                <span class="text-lg font-bold text-emerald-700 my-1">205</span>
+                                <button class="text-gray-600 hover:text-red-500" title="Downvote">
+                                    <i data-lucide="arrow-down" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                            <!-- Content -->
+                            <div class="p-6 flex-grow">
+                                <p class="text-sm text-gray-500 mb-1">
+                                    Posted by <a href="#" class="font-semibold text-emerald-700 hover:underline">@NewbieGolfer</a> · 2 days ago
+                                </p>
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-emerald-700 cursor-pointer">
+                                    New Glove Day! Just got my combo pack for €39.99.
+                                </h3>
+                                <div class="my-4">
+                                    <!-- 
+                                      IMAGE PLACEHOLDER: 
+                                      Replace with a user-submitted photo of the product, "unboxing" style. (e.g., src="images/community/thread3.jpg")
+                                    -->
+                                    <img src="Gemini_Generated_Image_o5liswo5liswo5li.png" alt="New SwingBro glove" class="rounded-lg w-full h-auto object-cover border">
+                                </div>
+                                <div class="flex items-center space-x-6 text-gray-500 font-medium text-sm">
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="message-square" class="w-4 h-4"></i> 
+                                        <span>31 Comments</span>
+                                    </a>
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="share-2" class="w-4 h-4"></i> 
+                                        <span>Share</span>
+                                    </a>
+                                    <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
+                                        <i data-lucide="bookmark" class="w-4 h-4"></i> 
+                                        <span>Save</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Influencer Subsection -->
+                <div id="influencers" class="mt-20">
+                    <h2 class="text-center text-3xl font-bold text-gray-900 mb-12">
+                        Our Partner Influencers
+                    </h2>
+                    <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                        See how top golfers are using SwingBro to improve their game.
+                    </p>
+                    <div class="flex justify-center">
+                        <!-- Influencer Card - Lucas Fallotico -->
+                        <div class="bg-white rounded-lg shadow-lg p-6 text-center max-w-xs">
+                            <!-- 
+                              IMAGE PLACEHOLDER: 
+                              Replace with a headshot or action shot of Lucas Fallotico. (e.g., src="images/influencers/lucas.jpg")
+                            -->
+                            <img src="https://placehold.co/150x150/E0E0E0/333333?text=LF" alt="Lucas Fallotico" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
+                            <h3 class="text-xl font-semibold text-gray-900">Lucas Fallotico</h3>
+                            <p class="text-gray-500 mb-3">Rising Italian Pro Golfer</p>
+                            <a href="#" class="text-emerald-600 hover:text-emerald-800" title="Alps Tour Golf">
+                                <i data-lucide="trophy" class="w-8 h-8 mx-auto"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Contact -->
+        <section id="contact" class="view py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-4">
+                    Get In Touch
+                </h2>
+                <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                    Have a question, partnership idea, or just want to talk golf? We'd love to hear from you.
+                </p>
+
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 bg-gray-50 p-8 md:p-12 rounded-lg shadow-lg">
+                    <!-- Contact Form -->
+                    <form>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Send us a message</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="contact-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="contact-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="contact-subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                            <input type="text" id="contact-subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="Question about my order">
+                        </div>
+                        <div class="mb-6">
+                            <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                            <textarea id="contact-message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="Hi there, I was wondering..."></textarea>
+                        </div>
+                        <div class="text-left">
+                            <button type="submit" class="bg-emerald-600 text-white px-10 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Contact Info -->
+                    <div class="space-y-8 mt-8 md:mt-0">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center mb-2">
+                                <i data-lucide="mail" class="w-5 h-5 text-emerald-600 mr-3"></i> Email
+                            </h4>
+                            <p class="text-gray-600">General Inquiries: <a href="mailto:info@swingbro.com" class="text-emerald-600 hover:underline">info@swingbro.com</a></p>
+                            <p class="text-gray-600">Support: <a href="mailto:support@swingbro.com" class="text-emerald-600 hover:underline">support@swingbro.com</a></p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center mb-2">
+                                <i data-lucide="phone" class="w-5 h-5 text-emerald-600 mr-3"></i> Phone
+                            </h4>
+                            <p class="text-gray-600">+39 02 1234 5678</p>
+                            <p class="text-gray-500 text-sm">(Mon-Fri, 9am - 5pm CET)</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center mb-2">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-emerald-600 mr-3"></i> Address
+                            </h4>
+                            <p class="text-gray-600">SwingBro HQ</p>
+                            <p class="text-gray-600">Via della Spiga, 1, 20121 Milano, Italy</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-800 flex items-center mb-2">
+                                <i data-lucide="store" class="w-5 h-5 text-emerald-600 mr-3"></i> Our Partners
+                            </h4>
+                            <p class="text-gray-600">Find us in-store at:</p>
+                            <p class="text-gray-800 font-semibold">Mulligan Golf Store, Milan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h5 class="font-bold text-white text-lg mb-3">SwingBro</h5>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="about">About Us</a>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="about">Our Team</a>
+                    <a href="#" class="block py-1 hover:text-white">Careers</a>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white text-lg mb-3">Shop</h5>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="products">Products</a>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="marketplace">Refurbished</a>
+                    <a href="#" class="block py-1 hover:text-white">Wholesale</a>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white text-lg mb-3">Support</h5>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="contact">Contact Us</a>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="services">Repairs</a>
+                    <a href="#" class="block py-1 hover:text-white">FAQ</a>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white text-lg mb-3">Legal</h5>
+                    <a href="#" class="block py-1 hover:text-white">Privacy Policy</a>
+                    <a href="#" class="block py-1 hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm">&copy; 2025 SwingBro. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="youtube" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Chatbot -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Toggle Button -->
+        <button id="chat-toggle" class="bg-emerald-600 text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center hover:bg-emerald-700 transition duration-300">
+            <i data-lucide="message-circle" class="w-8 h-8"></i>
+        </button>
+
+        <!-- Chat Widget -->
+        <div id="chat-widget" class="hidden absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-lg shadow-xl border border-gray-200">
+            <!-- Chat Header -->
+            <div class="bg-emerald-600 text-white p-4 rounded-t-lg flex justify-between items-center">
+                <h3 class="font-bold text-lg">SwingBro Assistant</h3>
+                <button id="chat-close" class="text-emerald-100 hover:text-white">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="h-80 p-4 overflow-y-auto space-y-4">
+                <!-- Initial Bot Message -->
+                <div class="chat-message bot">
+                    <p class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs">
+                        Hello! How can I help you with SwingBro today?
+                    </p>
+                </div>
+            </div>
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-gray-200 flex">
+                <input type="text" id="chat-input" class="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-emerald-500 focus:border-emerald-500" placeholder="Type your message...">
+                <button id="chat-send" class="bg-emerald-600 text-white px-4 rounded-r-lg hover:bg-emerald-700">
+                    <i data-lucide="send" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            lucide.createIcons();
+
+            // --- Cart State ---
+            let cart = [];
+
+            // --- Selectors ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const views = document.querySelectorAll('.view');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const cartCountEls = document.querySelectorAll('.cart-count');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartTotalEl = document.getElementById('cart-total');
+            const cartEmptyMessage = document.getElementById('cart-empty-message');
+            const cartSummary = document.getElementById('cart-summary');
+
+            // --- Cart Functions ---
+            function updateCartCount() {
+                cartCountEls.forEach(el => {
+                    el.textContent = cart.length;
+                });
+            }
+
+            function renderCartItems() {
+                // Clear existing items
+                cartItemsContainer.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartEmptyMessage.classList.remove('hidden');
+                    cartSummary.classList.add('hidden');
+                    cartTotalEl.textContent = '€0.00'; // Ensure total is reset
+                    return;
+                }
+
+                cartEmptyMessage.classList.add('hidden');
+                cartSummary.classList.remove('hidden');
+
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    const itemEl = document.createElement('div');
+                    itemEl.classList.add('flex', 'justify-between', 'items-center', 'py-4', 'border-b');
+                    itemEl.innerHTML = `
+                        <div>
+                            <h4 class="font-semibold text-lg">${item.name}</h4>
+                            <p class="text-gray-600">€${item.price.toFixed(2)}</p>
+                        </div>
+                        <button class="text-red-500 hover:text-red-700 remove-from-cart-btn" data-index="${index}">
+                            <i data-lucide="trash-2" class="w-5 h-5"></i>
+                        </button>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+
+                cartTotalEl.textContent = `€${total.toFixed(2)}`;
+                
+                // Re-initialize icons for new remove buttons
+                lucide.createIcons();
+            }
+            
+            // Add to Cart Logic
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const name = e.target.dataset.productName;
+                    const price = parseFloat(e.target.dataset.productPrice);
+                    
+                    cart.push({ name, price });
+                    updateCartCount();
+
+                    // Visual feedback on button
+                    const originalText = e.target.textContent;
+                    if (e.target.dataset.clicked) return; // Prevent multiple clicks while animating
+                    
+                    e.target.dataset.clicked = "true";
+                    e.target.textContent = 'Added!';
+                    e.target.classList.add('bg-green-500');
+                    e.target.classList.remove('bg-emerald-600');
+
+                    setTimeout(() => {
+                        e.target.textContent = originalText;
+                        e.target.classList.remove('bg-green-500');
+                        e.target.classList.add('bg-emerald-600');
+                        delete e.target.dataset.clicked;
+                    }, 1000);
+                });
+            });
+
+            // Remove from Cart Logic (delegated listener)
+            cartItemsContainer.addEventListener('click', (e) => {
+                const removeButton = e.target.closest('.remove-from-cart-btn');
+                if (removeButton) {
+                    const index = parseInt(removeButton.dataset.index, 10);
+                    cart.splice(index, 1); // Remove item from cart array
+                    renderCartItems(); // Re-render the cart
+                    updateCartCount(); // Update the cart count
+                }
+            });
+
+
+            // --- Navigation Logic ---
+            // const navLinks = document.querySelectorAll('.nav-link');
+            // const views = document.querySelectorAll('.view');
+            // const mobileMenu = document.getElementById('mobile-menu');
+            // const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+            function navigateTo(targetId) {
+                // Hide all views
+                views.forEach(view => {
+                    view.classList.remove('active');
+                });
+
+                // Show the target view
+                const targetView = document.getElementById(targetId);
+                if (targetView) {
+                    targetView.classList.add('active');
+                }
+
+                // Special logic for cart page
+                if (targetId === 'cart') {
+                    renderCartItems();
+                }
+
+                // Update active link state
+                navLinks.forEach(link => {
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
+                // Hide mobile menu after navigation
+                mobileMenu.classList.add('hidden');
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.dataset.target;
+                    navigateTo(targetId);
+                });
+            });
+
+            // --- Mobile Menu Toggle ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // --- Chatbot Logic ---
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatWidget = document.getElementById('chat-widget');
+            const chatClose = document.getElementById('chat-close');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+
+            chatToggle.addEventListener('click', () => {
+                chatWidget.classList.toggle('hidden');
+                if (!chatWidget.classList.contains('hidden')) {
+                    chatInput.focus();
+                }
+            });
+
+            chatClose.addEventListener('click', () => {
+                chatWidget.classList.add('hidden');
+            });
+
+            function sendChatMessage() {
+                const userInput = chatInput.value.trim();
+                if (userInput === '') return;
+
+                // Add user message to chat
+                addMessage(userInput, 'user');
+                chatInput.value = '';
+
+                // Get and add bot response
+                setTimeout(() => {
+                    const botResponse = getBotResponse(userInput);
+                    addMessage(botResponse, 'bot');
+                }, 1000);
+            }
+
+            chatSend.addEventListener('click', sendChatMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendChatMessage();
+                }
+            });
+
+            function addMessage(message, sender) {
+                const messageEl = document.createElement('div');
+                messageEl.classList.add('chat-message', sender);
+                
+                if (sender === 'user') {
+                    messageEl.innerHTML = `<div class="flex justify-end"><p class="bg-emerald-600 text-white p-3 rounded-lg max-w-xs">${message}</p></div>`;
+                } else {
+                    messageEl.innerHTML = `<p class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs">${message}</p>`;
+                }
+                
+                chatMessages.appendChild(messageEl);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function getBotResponse(input) {
+                const i = input.toLowerCase();
+
+                if (i.includes('hello') || i.includes('hi')) {
+                    return 'Hi there! How can I help? You can ask about "products", "repairs", or "shipping".';
+                }
+                if (i.includes('product')) {
+                    return 'We have the SwingBro Combo Pack for €39.99, plus replacement sensors and gloves. You can see them all on the <a href="#" class="underline nav-link" data-target="products">Products</a> page.';
+                }
+                if (i.includes('price')) {
+                    return 'Our main product, the SwingBro Combo Pack (Glove + Sensor), is €39.99.';
+                }
+                if (i.includes('repair') || i.includes('replacement')) {
+                    return 'You can request a repair or replacement on our <a href="#" class="underline nav-link" data-target="services">Services</a> page.';
+                }
+                if (i.includes('marketplace') || i.includes('second-hand') || i.includes('refurbished')) {
+                    return 'Check out our certified refurbished gear on the <a href="#" class="underline nav-link" data-target="marketplace">Marketplace</a>!';
+                }
+                if (i.includes('team')) {
+                    return 'You can meet our amazing team on the <a href="#" class="underline nav-link" data-target="about">About Us</a> page.';
+                }
+                if (i.includes('contact') || i.includes('talk')) {
+                    return 'The best way to get in touch is via our <a href="#" class="underline nav-link" data-target="contact">Contact</a> form. Our team will get back to you soon!';
+                }
+                if (i.includes('thanks') || i.includes('thank you')) {
+                    return 'You\'re welcome! Let me know if you need anything else.';
+                }
+
+                return "Sorry, I'm not quite sure about that. Try asking about 'products' or 'repairs'.";
+            }
+            
+            // Re-bind nav links inside chat
+            chatMessages.addEventListener('click', (e) => {
+                if (e.target.classList.contains('nav-link')) {
+                    e.preventDefault();
+                    const targetId = e.target.dataset.target;
+                    navigateTo(targetId);
+                    chatWidget.classList.add('hidden');
+                }
+            });
+
+            // Set default view
+            navigateTo('home');
+            updateCartCount(); // Initialize cart count on load
+        });
+    </script>
+</body>
+</html>
