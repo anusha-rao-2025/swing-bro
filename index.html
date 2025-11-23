@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SwingGo - The Future of Golf</title>
+    <title>SwinGo - The Future of Golf</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons CDN -->
@@ -51,6 +51,28 @@
             color: #059669; /* emerald-600 */
             font-weight: 600;
         }
+
+        /* Quiz styles */
+        .quiz-step {
+            display: none;
+        }
+        .quiz-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .quiz-choice {
+            transition: all 0.2s ease-in-out;
+        }
+        .quiz-choice:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-color: #10B981; /* emerald-500 */
+        }
+        .quiz-choice.selected {
+            border-color: #10B981;
+            background-color: #D1FAE5; /* emerald-100 */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -60,7 +82,7 @@
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <!-- Logo -->
             <a href="#" class="text-3xl font-bold text-emerald-700 nav-link" data-target="home">
-                SwingBro
+                SwinGo
             </a>
 
             <!-- Desktop Navigation -->
@@ -68,6 +90,7 @@
                 <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link active" data-target="home">Home</a>
                 <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="about">About Us</a>
                 <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="products">Products</a>
+                <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="drills">Drills</a>
                 <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="services">Services</a>
                 <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="marketplace">Marketplace</a>
                 <a href="#" class="text-gray-600 hover:text-emerald-700 nav-link" data-target="community">Community</a>
@@ -94,6 +117,7 @@
             <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link active" data-target="home">Home</a>
             <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="about">About Us</a>
             <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="products">Products</a>
+            <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="drills">Drills</a>
             <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="services">Services</a>
             <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="marketplace">Marketplace</a>
             <a href="#" class="block px-4 py-3 text-gray-600 hover:bg-gray-100 hover:text-emerald-700 nav-link" data-target="community">Community</a>
@@ -126,11 +150,6 @@
                         </a>
                     </div>
                     <div class="md:w-1/2 mt-12 md:mt-0">
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace this with a high-quality product shot of the SwingBro glove, 
-                          ideally showing the sensor. (e.g., src="images/hero-glove.jpg")
-                        -->
                         <video class="rounded-lg shadow-2xl mx-auto" autoplay loop muted playsinline>
                               <source src="Golf_Swing_Tempo_Video_Generated.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
@@ -139,8 +158,68 @@
                 </div>
             </div>
 
+            <!-- Find Your Fault Quiz -->
+            <div id="quiz" class="py-16 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Find Your #1 Swing Fault in 30 Seconds</h2>
+                    <p class="text-lg text-gray-600 mb-8">Take our quick quiz to see how SwinGo can help you.</p>
+
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg">
+                        <!-- Step 1: Fault -->
+                        <div id="quiz-step-1" class="quiz-step active">
+                            <h3 class="text-xl font-semibold mb-6">What is your biggest struggle on the course?</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <button class="quiz-choice p-6 bg-white rounded-lg border-2 border-gray-200" data-next="quiz-step-2" data-fault="slice">
+                                    <span class="text-2xl">😩</span>
+                                    <h4 class="text-lg font-semibold mt-2">Slicing / Fading</h4>
+                                </button>
+                                <button class="quiz-choice p-6 bg-white rounded-lg border-2 border-gray-200" data-next="quiz-step-2" data-fault="hook">
+                                    <span class="text-2xl">😭</span>
+                                    <h4 class="text-lg font-semibold mt-2">Hooking / Pulling</h4>
+                                </button>
+                                <button class="quiz-choice p-6 bg-white rounded-lg border-2 border-gray-200" data-next="quiz-step-2" data-fault="tempo">
+                                    <span class="text-2xl">😵</span>
+                                    <h4 class="text-lg font-semibold mt-2">Bad Tempo (Rushing)</h4>
+                                </button>
+                                <button class="quiz-choice p-6 bg-white rounded-lg border-2 border-gray-200" data-next="quiz-step-2" data-fault="consistency">
+                                    <span class="text-2xl">🤷‍♂️</span>
+                                    <h4 class="text-lg font-semibold mt-2">General Consistency</h4>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Experience -->
+                        <div id="quiz-step-2" class="quiz-step">
+                            <h3 class="text-xl font-semibold mb-6">How long have you been playing?</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <button class="quiz-choice p-4 bg-white rounded-lg border-2 border-gray-200" data-next="quiz-step-result">
+                                    <h4 class="text-lg font-semibold">Just Started (0-6 months)</h4>
+                                </button>
+                                <button class="quiz-choice p-4 bg-white rounded-lg border-2 border-gray-200" data-next="quiz-step-result">
+                                    <h4 class="text-lg font-semibold">On and Off (A few years)</h4>
+                                </button>
+                                <button class="quiz-choice p-4 bg-white rounded-lg border-2 border-gray-200" data-next="quiz-step-result">
+                                    <h4 class="text-lg font-semibold">I play regularly</h4>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Result Step -->
+                        <div id="quiz-step-result" class="quiz-step">
+                            <h3 class="text-2xl font-bold text-emerald-700 mb-4">You struggle with <span id="fault-text"></span>!</h3>
+                            <p id="result-text" class="text-lg text-gray-700 mb-8">
+                                <!-- Personalized text will go here -->
+                            </p>
+                            <a href="#" class="bg-emerald-600 text-white font-bold px-8 py-3 rounded-full text-lg hover:bg-emerald-700 transition duration-300 nav-link" data-target="products">
+                                See How SwinGo Fixes This
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Features Section -->
-            <div class="py-16 bg-white">
+            <div class="py-16 bg-gray-50">
                 <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 class="text-3xl font-bold text-gray-900 mb-12">
                         The Beginner's Secret Weapon
@@ -164,12 +243,88 @@
                             <i data-lucide="bar-chart-3" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
                             <h3 class="text-xl font-semibold mb-2">Simple Session Summaries</h3>
                             <p class="text-gray-600">
-                                Track your progress with simple charts for swing tempo and consistency in the SwingBro app.
+                                Track your progress with simple charts for swing tempo and consistency in the SwinGo app.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Before & After Showcase -->
+            <div class="py-16 bg-white">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                        Real Results from Real Beginners
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                        This isn't just theory. See how SwinGo is helping new players build consistency and confidence.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Chiara's Story -->
+                        <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Chiara's Tempo</h3>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-1/2 pr-2">
+                                    <h4 class="font-semibold mb-2">Before SwinGo</h4>
+                                    <img src="https://placehold.co/300x200/FEE2E2/DC2626?text=Inconsistent+Tempo" alt="Messy tempo chart" class="rounded-lg border-4 border-red-200">
+                                </div>
+                                <div class="w-1/2 pl-2">
+                                    <h4 class="font-semibold mb-2">After 4 Weeks</h4>
+                                    <img src="https://placehold.co/300x200/D1FAE5/059669?text=Consistent+Tempo" alt="Consistent tempo chart" class="rounded-lg border-4 border-emerald-200">
+                                </div>
+                            </div>
+                            <blockquote class="text-gray-600 italic">"I finally found my rhythm! The glove's haptic feedback helped me slow down my backswing."</blockquote>
+                        </div>
+                        <!-- Riccardo's Story -->
+                        <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Riccardo's Consistency</h3>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-1/2 pr-2">
+                                    <h4 class="font-semibold mb-2">Before SwinGo</h4>
+                                    <img src="https://placehold.co/300x200/FEE2E2/DC2626?text=Wide+Dispersion" alt="Wide dispersion chart" class="rounded-lg border-4 border-red-200">
+                                </div>
+                                <div class="w-1/2 pl-2">
+                                    <h4 class="font-semibold mb-2">After 6 Weeks</h4>
+                                    <img src="https://placehold.co/300x200/D1FAE5/059669?text=Tight+Dispersion" alt="Tight dispersion chart" class="rounded-lg border-4 border-emerald-200">
+                                </div>
+                            </div>
+                            <blockquote class="text-gray-600 italic">"My biggest struggle was maintaining rhythm. A glove that helps correct tempo would be extremely useful."</blockquote>
+                        </div>
+                        <!-- Edoardo's Story -->
+                        <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Edoardo's Precision</h3>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-1/2 pr-2">
+                                    <h4 class="font-semibold mb-2">Before SwinGo</h4>
+                                    <img src="https://placehold.co/300x200/FEE2E2/DC2626?text=Open+Clubface" alt="Open clubface data" class="rounded-lg border-4 border-red-200">
+                                </div>
+                                <div class="w-1/2 pl-2">
+                                    <h4 class="font-semibold mb-2">After 3 Weeks</h4>
+                                    <img src="https://placehold.co/300x200/D1FAE5/059669?text=Square+Clubface" alt="Square clubface data" class="rounded-lg border-4 border-emerald-200">
+                                </div>
+                            </div>
+                            <blockquote class="text-gray-600 italic">"Consistency and precision were my biggest challenges. This seems totally fair for a glove that helps with that."</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust Bar -->
+            <div class="py-12 bg-gray-100">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">
+                        As Seen At & In Partnership With
+                    </h3>
+                    <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-4">
+                        <span class="text-lg font-medium text-gray-400" title="Mulligan Golf Store, Milan">Mulligan Golf Store</span>
+                        <span class="text-lg font-medium text-gray-400" title="Alps Tour Golf">Alps Tour Golf</span>
+                        <span class="text-lg font-medium text-gray-400" title="Golf Club Bormio">Golf Club Bormio</span>
+                        <span class="text-lg font-medium text-gray-400" title="La Pinetina Golf Club">La Pinetina</span>
+                        <span class="text-lg font-medium text-gray-400" title="Golf Club Villa d'Este">Golf Club Villa d'Este</span>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
         <!-- Section: About Us -->
@@ -181,16 +336,16 @@
                     </h2>
                     <div class="prose prose-lg max-w-none text-gray-700 space-y-6">
                         <p class="text-xl font-semibold text-gray-900">
-                            SwingBro doesn't just compete within the golf tech market; we expand it.
+                            SwinGo doesn't just compete within the golf tech market; we expand it.
                         </p>
                         <p>
-                            While competitors sell complex data analytics to seasoned players, SwingBro targets beginners, helping them enter the world of golf with confidence. We sell instant, intuitive learning feedback: no complicated stats, no complex set-up, just feel.
+                            While competitors sell complex data analytics to seasoned players, SwinGo targets beginners, helping them enter the world of golf with confidence. We sell instant, intuitive learning feedback: no complicated stats, no complex set-up, just feel.
                         </p>
                         <p>
-                            Our long-term vision is to significantly enhance the accessibility and data-driven nature of golf for both novice and experienced players. Currently, golf improvement often relies on costly coaching and limited access to experienced instructors. Our product, SwingBro, eliminates this barrier by integrating coaching intelligence directly into the glove.
+                            Our long-term vision is to significantly enhance the accessibility and data-driven nature of golf for both novice and experienced players. Currently, golf improvement often relies on costly coaching and limited access to experienced instructors. Our product, SwinGo, eliminates this barrier by integrating coaching intelligence directly into the glove.
                         </p>
                         <p>
-                            SwingBro continuously learns from the player’s swing patterns over time. As the player engages in more practice, the device becomes more personalised, providing tailored feedback and improvement cues rather than generic instruction. For newcomers, this enables affordable, real-time guidance without the need for a trainer; for established players, it offers a silent coach that refines tempo and consistency between lessons and on the course.
+                            SwinGo continuously learns from the player’s swing patterns over time. As the player engages in more practice, the device becomes more personalised, providing tailored feedback and improvement cues rather than generic instruction. For newcomers, this enables affordable, real-time guidance without the need for a trainer; for established players, it offers a silent coach that refines tempo and consistency between lessons and on the course.
                         </p>
                     </div>
                 </div>
@@ -198,15 +353,11 @@
                 <!-- Our Team Subsection -->
                 <div id="team" class="mt-20">
                     <h2 class="text-center text-3xl font-bold text-gray-900 mb-12">
-                        Meet the SwingBro Team
+                        Meet the SwinGo Team
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Team Member Card -->
                         <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                            <!-- 
-                              IMAGE PLACEHOLDER: 
-                              Replace with a headshot of Alessandro Zavi. (e.g., src="images/team/alessandro.jpg")
-                            -->
                             <img src="IMG_8219_i31ockip76zi.JPG" alt="Alessandro Zavi" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200 object-cover">
                             <h3 class="text-xl font-semibold text-gray-900">Alessandro Zavi</h3> 
                             <p class="text-emerald-700 font-medium mb-2">Public Speaking & Relations</p>
@@ -214,10 +365,6 @@
                         </div>
                         <!-- Team Member Card -->
                         <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                            <!-- 
-                              IMAGE PLACEHOLDER: 
-                              Replace with a headshot of Leonardo Dell'Orfanello. (e.g., src="images/team/leonardo.jpg")
-                            -->
                             <img src="IMG_6792_uddu7w3wafvc.jpeg" alt="Leonardo Dell'Orfanello" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200 object-cover">
                             <h3 class="text-xl font-semibold text-gray-900">Leonardo Dell'Orfanello</h3>
                             <p class="text-emerald-700 font-medium mb-2">Financial Analyst</p>
@@ -225,10 +372,6 @@
                         </div>
                         <!-- Team Member Card -->
                         <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                            <!-- 
-                              IMAGE PLACEHOLDER: 
-                              Replace with a headshot of Lucio Goglia. (e.g., src="images/team/lucio.jpg")
-                            -->
                             <img src="WhatsApp Image 2025-10-24 at 09.26.33.jpeg" alt="Lucio Goglia" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200 object-cover">
                             <h3 class="text-xl font-semibold text-gray-900">Lucio Goglia</h3>
                             <p class="text-emerald-700 font-medium mb-2">Data Interpretation</p>
@@ -236,10 +379,6 @@
                         </div>
                         <!-- Team Member Card -->
                         <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                            <!-- 
-                              IMAGE PLACEHOLDER: 
-                              Replace with a headshot of Thomas Belledent. (e.g., src="images/team/thomas.jpg")
-                            -->
                             <img src="IMG_8918_yz3ki7xh7jcf.PNG" alt="Thomas Belledent" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200 object-cover">
                             <h3 class="text-xl font-semibold text-gray-900">Thomas Belledent</h3>
                             <p class="text-emerald-700 font-medium mb-2">Market Research</p>
@@ -247,10 +386,6 @@
                         </div>
                         <!-- Team Member Card -->
                         <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                            <!-- 
-                              IMAGE PLACEHOLDER: 
-                              Replace with a headshot of Anastasia Cotella. (e.g., src="images/team/anastasia.jpg")
-                            -->
                             <img src="foto_digitale_syq7zf91a6v4.jpg" alt="Anastasia Cotella" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200 object-cover">
                             <h3 class="text-xl font-semibold text-gray-900">Anastasia Cotella</h3>
                             <p class="text-emerald-700 font-medium mb-2">Data Analysis</p>
@@ -258,10 +393,6 @@
                         </div>
                         <!-- Team Member Card -->
                         <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                            <!-- 
-                              IMAGE PLACEHOLDER: 
-                              Replace with a headshot of Anusha Rao. (e.g., src="images/team/anusha.jpg")
-                            -->
                             <img src="51f3bf07_7fdb_4407_8437_abe55f04103e_io660i1k7ssh.jpeg" alt="Anusha Rao" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200 object-cover">
                             <h3 class="text-xl font-semibold text-gray-900">Anusha Rao</h3>
                             <p class="text-emerald-700 font-medium mb-2">Engineering & AI</p>
@@ -281,32 +412,42 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <!-- Product Card 1 -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace with a product shot of the SwingBro Sensor by itself. (e.g., src="images/products/sensor.jpg")
-                        -->
-                        <img src="unnamed (1).jpg" alt="SwingBro Sensor" class="w-full h-48 object-cover">
+                        <img src="unnamed (1).jpg" alt="SwinGo Sensor" class="w-full h-48 object-cover">
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro Sensor</h3>
-                            <p class="text-gray-600 text-sm mb-4">An AI sensor for your SwingBro glove.</p>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwinGo Sensor</h3>
+                            <p class="text-gray-600 text-sm mb-4">An AI sensor for your SwinGo glove.</p>
+                            <!-- Star Rating -->
+                            <div class="flex items-center mb-4">
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-gray-300 fill-current"></i>
+                                <span class="text-sm text-gray-500 ml-2">(18 Reviews)</span>
+                            </div>
                             <p class="text-3xl font-bold text-gray-900 mb-4">€29.99</p>
-                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro Sensor (Replacement)" data-product-price="29.99">
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwinGo Sensor (Replacement)" data-product-price="29.99">
                                 Add to Cart
                             </button>
                         </div>
                     </div>
                     <!-- Product Card 2 -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace with a product shot of the SwingBro Glove by itself (no sensor). (e.g., src="images/products/glove.jpg")
-                        -->
-                        <img src="unnamed (2).jpg" alt="SwingBro Glove" class="w-full h-48 object-cover">
+                        <img src="unnamed (2).jpg" alt="SwinGo Glove" class="w-full h-48 object-cover">
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro Glove</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwinGo Glove</h3>
                             <p class="text-gray-600 text-sm mb-4">Premium cabretta leather glove, sensor-ready. (Glove only)</p>
+                            <!-- Star Rating -->
+                            <div class="flex items-center mb-4">
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <span class="text-sm text-gray-500 ml-2">(32 Reviews)</span>
+                            </div>
                             <p class="text-3xl font-bold text-gray-900 mb-4">€14.99</p>
-                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro Glove (Replacement)" data-product-price="14.99">
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwinGo Glove (Replacement)" data-product-price="14.99">
                                 Add to Cart
                             </button>
                         </div>
@@ -314,37 +455,171 @@
                     <!-- Product Card 3 -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col border-4 border-emerald-500 relative">
                         <span class="absolute top-0 left-0 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-br-lg">BEST VALUE</span>
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace with a product shot of the Combo Pack (Glove + Sensor). (e.g., src="images/products/combo.jpg")
-                        -->
-                        <img src="unnamed (3).jpg" alt="SwingBro Combo" class="w-full h-48 object-cover">
+                        <img src="unnamed (3).jpg" alt="SwinGo Combo" class="w-full h-48 object-cover">
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro Combo Pack</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwinGo Combo Pack</h3>
                             <p class="text-gray-600 text-sm mb-4">Get the Sensor and Glove together. This is the complete kit!</p>
+                            <!-- Star Rating -->
+                            <div class="flex items-center mb-4">
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star-half" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <span class="text-sm text-gray-500 ml-2">(112 Reviews)</span>
+                            </div>
                             <p class="text-3xl font-bold text-gray-900 mb-4">€49.99</p>
-                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro Combo Pack" data-product-price="39.99">
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwinGo Combo Pack" data-product-price="39.99">
                                 Add to Cart
                             </button>
                         </div>
                     </div>
                     <!-- Product Card 4 -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace with a lifestyle image or screenshot of the SwingBro App. (e.g., src="images/products/app-screenshot.jpg")
-                        -->
-                        <img src="unnamed (4).jpg" alt="SwingBro App" class="w-full h-48 object-cover">
+                        <img src="unnamed (4).jpg" alt="SwinGo App" class="w-full h-48 object-cover">
                         <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwingBro App (Pro Tier)</h3>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">SwinGo App (Pro Tier)</h3>
                             <p class="text-gray-600 text-sm mb-4">Unlock Session Summaries, Swing Ratio Warnings, and Achievements.</p>
+                            <!-- Star Rating -->
+                            <div class="flex items-center mb-4">
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <i data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>
+                                <span class="text-sm text-gray-500 ml-2">(45 Reviews)</span>
+                            </div>
                             <p class="text-3xl font-bold text-gray-900 mb-4">€2.99/mo</p>
-                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwingBro App (Pro Tier)" data-product-price="2.99">
+                            <button class="mt-auto w-full bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300 add-to-cart-btn" data-product-name="SwinGo App (Pro Tier)" data-product-price="2.99">
                                 Subscribe
                             </button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Customer Reviews Section -->
+                <div class="mt-20">
+                    <h2 class="text-center text-3xl font-bold text-gray-900 mb-12">
+                        What Our Customers Say
+                    </h2>
+                    <div class="max-w-4xl mx-auto space-y-6">
+                        <!-- Review 1 -->
+                        <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                            <div class="flex items-center mb-3">
+                                <img src="https://placehold.co/50x50/E0E0E0/333333?text=RC" alt="Riccardo" class="w-12 h-12 rounded-full object-cover">
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-semibold text-gray-900">Riccardo M.</h4>
+                                    <div class="flex items-center">
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                    </div>
+                                </div>
+                                <span class="ml-auto text-sm text-gray-500">Verified Buyer</span>
+                            </div>
+                            <p class="text-gray-700 italic">"At €39.99, I would definitely buy it. My biggest struggle is maintaining rhythm and club speed. A glove that helps me correct tempo would be extremely useful."</p>
+                            <p class="text-sm text-gray-500 mt-2">Product: <span class="font-medium text-gray-700">SwinGo Combo Pack</span></p>
+                        </div>
+                        <!-- Review 2 -->
+                        <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                            <div class="flex items-center mb-3">
+                                <img src="https://placehold.co/50x50/E0E0E0/333333?text=CG" alt="Chiara" class="w-12 h-12 rounded-full object-cover">
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-semibold text-gray-900">Chiara G.</h4>
+                                    <div class="flex items-center">
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                        <i data-lucide="star-half" class="w-4 h-4 text-yellow-400 fill-current"></i>
+                                    </div>
+                                </div>
+                                <span class="ml-auto text-sm text-gray-500">Verified Buyer</span>
+                            </div>
+                            <p class="text-gray-700 italic">"I find golf hard to practice alone. If the glove helps me improve my swing and train at home, I'd be interested. Price sensitivity is a factor, but the potential value is clear."</p>
+                            <p class="text-sm text-gray-500 mt-2">Product: <span class="font-medium text-gray-700">SwinGo Combo Pack</span></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- NEW Section: Drills -->
+        <section id="drills" class="view py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-4">
+                    SwinGo Drills
+                </h2>
+                <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+                    Expert tips from our Golf Specialist, Anastasia Cotella. Use these drills with your SwinGo glove to supercharge your practice.
+                </p>
+
+                <!-- Featured Drill -->
+                <div class="bg-white rounded-lg shadow-xl overflow-hidden mb-16">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-8 md:p-12">
+                            <span class="text-sm font-semibold text-emerald-600 uppercase">Drill of the Week</span>
+                            <h3 class="text-3xl font-bold text-gray-900 mt-2 mb-4">The 3:1 Tempo Drill</h3>
+                            <p class="text-gray-600 text-lg mb-6">
+                                The ideal swing tempo for most pros is a 3:1 ratio (e.g., 0.75s backswing, 0.25s downswing). This drill builds that perfect, smooth rhythm.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-emerald-600 mr-3 flex-shrink-0"></i>
+                                    <p class="text-gray-700">Set your SwinGo app to "Tempo Mode" with a 3:1 ratio goal.</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-emerald-600 mr-3 flex-shrink-0"></i>
+                                    <p class="text-gray-700">Take slow, half-swings, focusing only on the haptic buzz.</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <i data-lucide="check" class="w-6 h-6 text-emerald-600 mr-3 flex-shrink-0"></i>
+                                    <p class="text-gray-700">You'll feel a buzz if you're too fast *or* too slow. Adjust until you feel nothing.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-200">
+                            <div class="w-full h-64 md:h-full flex items-center justify-center">
+                                <img src="https://placehold.co/600x400/10B981/FFFFFF?text=Drill+Video+Here" alt="Drill of the Week Video" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drill Archive -->
+                <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">
+                    Drill Archive
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Drill Card -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <img src="https://placehold.co/400x300/E0E0E0/333333?text=Drill:+Fix+Your+Slice" alt="Fix Your Slice Drill" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold text-gray-900 mb-2">Drill: Fix Your Slice</h4>
+                            <p class="text-gray-600 text-sm">Learn to control your clubface at the top of your swing.</p>
+                        </div>
+                    </div>
+                    <!-- Drill Card -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <img src="https://placehold.co/400x300/E0E0E0/333333?text=Drill:+Stop+Hooking" alt="Stop Hooking Drill" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold text-gray-900 mb-2">Drill: Stop the Hook</h4>
+                            <p class="text-gray-600 text-sm">Use the glove to feel an over-active wrist rotation.</p>
+                        </div>
+                    </div>
+                    <!-- Drill Card -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
+                        <img src="https://placehold.co/400x300/E0E0E0/333333?text=Drill:+Pure+Consistency" alt="Consistency Drill" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-semibold text-gray-900 mb-2">Drill: Pure Consistency</h4>
+                            <p class="text-gray-600 text-sm">The 10-swing challenge. Can you get 10 "Good" swings in a row?</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -391,7 +666,7 @@
         <section id="marketplace" class="view py-16 bg-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-4">
-                    SwingBro Certified Refurbished
+                    SwinGo Certified Refurbished
                 </h2>
                 <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
                     Second-hand, first-class quality. All items are fully repaired, tested, and backed by a 90-day warranty.
@@ -399,10 +674,6 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Refurbished Item -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace with a shot of the refurbished sensor. (e.g., src="images/refurb/sensor.jpg")
-                        -->
                         <img src="unnamed (5).jpg" alt="Refurbished Sensor" class="w-full h-48 object-cover">
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Refurbished Sensor (Grade A)</h3>
@@ -418,10 +689,6 @@
                     </div>
                     <!-- Refurbished Item -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace with a shot of the refurbished glove. (e.g., src="images/refurb/glove.jpg")
-                        -->
                         <img src="unnamed (6).jpg" alt="Refurbished Glove" class="w-full h-48 object-cover">
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Refurbished Glove (Grade B)</h3>
@@ -437,10 +704,6 @@
                     </div>
                     <!-- Refurbished Item -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden flex flex-col">
-                        <!-- 
-                          IMAGE PLACEHOLDER: 
-                          Replace with a shot of the refurbished combo pack. (e.g., src="images/refurb/combo.jpg")
-                        -->
                         <img src="unnamed (7).jpg" alt="Refurbished Combo" class="w-full h-48 object-cover">
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="text-xl font-semibold text-gray-900 mb-2">Refurbished Combo Pack</h3>
@@ -489,7 +752,7 @@
         <section id="community" class="view py-16">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-center text-4xl font-extrabold text-gray-900 mb-4">
-                    Join the SwingBro Community
+                    Join the SwinGo Community
                 </h2>
                 <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
                     Share your progress, get tips, and connect with fellow golfers.
@@ -501,7 +764,7 @@
                         <i data-lucide="message-square" class="w-16 h-16 text-emerald-600 mx-auto mb-4"></i>
                         <h3 class="text-xl font-semibold mb-2">Community Forums</h3>
                         <p class="text-gray-600">
-                            Discuss gear, courses, and strategy with other SwingBro users.
+                            Discuss gear, courses, and strategy with other SwinGo users.
                         </p>
                     </div>
                     <div class="bg-white rounded-lg shadow-lg p-8 text-center">
@@ -545,13 +808,9 @@
                                     Posted by <a href="#" class="font-semibold text-emerald-700 hover:underline">@GolfGuru88</a> · 8 hours ago
                                 </p>
                                 <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3 hover:text-emerald-700 cursor-pointer">
-                                    My SwingBro app summary after 1 month - check this out!
+                                    My SwinGo app summary after 1 month - check this out!
                                 </h3>
                                 <div class="my-4">
-                                    <!-- 
-                                      IMAGE PLACEHOLDER: 
-                                      Replace with a user-submitted image, e.g., a screenshot of the app's tempo chart. (e.g., src="images/community/thread1.jpg")
-                                    -->
                                     <img src="unnamed (8).jpg" alt="Swing data chart" class="rounded-lg w-full h-auto object-cover border">
                                 </div>
                                 <p class="text-gray-700 mb-4">
@@ -636,11 +895,7 @@
                                     New Glove Day! Just got my combo pack for €39.99.
                                 </h3>
                                 <div class="my-4">
-                                    <!-- 
-                                      IMAGE PLACEHOLDER: 
-                                      Replace with a user-submitted photo of the product, "unboxing" style. (e.g., src="images/community/thread3.jpg")
-                                    -->
-                                    <img src="Gemini_Generated_Image_o5liswo5liswo5li.png" alt="New SwingBro glove" class="rounded-lg w-full h-auto object-cover border">
+                                    <img src="Gemini_Generated_Image_o5liswo5liswo5li.png" alt="New SwinGo glove" class="rounded-lg w-full h-auto object-cover border">
                                 </div>
                                 <div class="flex items-center space-x-6 text-gray-500 font-medium text-sm">
                                     <a href="#" class="flex items-center space-x-2 hover:text-emerald-600">
@@ -669,15 +924,11 @@
                         Our Partner Influencers
                     </h2>
                     <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
-                        See how top golfers are using SwingBro to improve their game.
+                        See how top golfers are using SwinGo to improve their game.
                     </p>
                     <div class="flex justify-center">
                         <!-- Influencer Card - Lucas Fallotico -->
                         <div class="bg-white rounded-lg shadow-lg p-6 text-center max-w-xs">
-                            <!-- 
-                              IMAGE PLACEHOLDER: 
-                              Replace with a headshot or action shot of Lucas Fallotico. (e.g., src="images/influencers/lucas.jpg")
-                            -->
                             <img src="https://placehold.co/150x150/E0E0E0/333333?text=LF" alt="Lucas Fallotico" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-emerald-200">
                             <h3 class="text-xl font-semibold text-gray-900">Lucas Fallotico</h3>
                             <p class="text-gray-500 mb-3">Rising Italian Pro Golfer</p>
@@ -736,8 +987,8 @@
                             <h4 class="text-lg font-semibold text-gray-800 flex items-center mb-2">
                                 <i data-lucide="mail" class="w-5 h-5 text-emerald-600 mr-3"></i> Email
                             </h4>
-                            <p class="text-gray-600">General Inquiries: <a href="mailto:info@swingbro.com" class="text-emerald-600 hover:underline">info@swingbro.com</a></p>
-                            <p class="text-gray-600">Support: <a href="mailto:support@swingbro.com" class="text-emerald-600 hover:underline">support@swingbro.com</a></p>
+                            <p class="text-gray-600">General Inquiries: <a href="mailto:info@swingo.com" class="text-emerald-600 hover:underline">info@swingo.com</a></p>
+                            <p class="text-gray-600">Support: <a href="mailto:support@swingo.com" class="text-emerald-600 hover:underline">support@swingo.com</a></p>
                         </div>
                         <div>
                             <h4 class="text-lg font-semibold text-gray-800 flex items-center mb-2">
@@ -750,7 +1001,7 @@
                             <h4 class="text-lg font-semibold text-gray-800 flex items-center mb-2">
                                 <i data-lucide="map-pin" class="w-5 h-5 text-emerald-600 mr-3"></i> Address
                             </h4>
-                            <p class="text-gray-600">SwingBro HQ</p>
+                            <p class="text-gray-600">SwinGo HQ</p>
                             <p class="text-gray-600">Via della Spiga, 1, 20121 Milano, Italy</p>
                         </div>
                         <div>
@@ -772,7 +1023,7 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
-                    <h5 class="font-bold text-white text-lg mb-3">SwingBro</h5>
+                    <h5 class="font-bold text-white text-lg mb-3">SwinGo</h5>
                     <a href="#" class="block py-1 hover:text-white nav-link" data-target="about">About Us</a>
                     <a href="#" class="block py-1 hover:text-white nav-link" data-target="about">Our Team</a>
                     <a href="#" class="block py-1 hover:text-white">Careers</a>
@@ -784,19 +1035,20 @@
                     <a href="#" class="block py-1 hover:text-white">Wholesale</a>
                 </div>
                 <div>
+                    <h5 class="font-bold text-white text-lg mb-3">Learn</h5>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="drills">Drill of the Week</a>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="community">Community</a>
+                    <a href="#" class="block py-1 hover:text-white nav-link" data-target="home">Fix Your Fault Quiz</a>
+                </div>
+                <div>
                     <h5 class="font-bold text-white text-lg mb-3">Support</h5>
                     <a href="#" class="block py-1 hover:text-white nav-link" data-target="contact">Contact Us</a>
                     <a href="#" class="block py-1 hover:text-white nav-link" data-target="services">Repairs</a>
                     <a href="#" class="block py-1 hover:text-white">FAQ</a>
                 </div>
-                <div>
-                    <h5 class="font-bold text-white text-lg mb-3">Legal</h5>
-                    <a href="#" class="block py-1 hover:text-white">Privacy Policy</a>
-                    <a href="#" class="block py-1 hover:text-white">Terms of Service</a>
-                </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-sm">&copy; 2025 SwingBro. All rights reserved.</p>
+                <p class="text-sm">&copy; 2025 SwinGo. All rights reserved.</p>
                 <div class="flex space-x-4 mt-4 md:mt-0">
                     <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
@@ -819,7 +1071,7 @@
         <div id="chat-widget" class="hidden absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-lg shadow-xl border border-gray-200">
             <!-- Chat Header -->
             <div class="bg-emerald-600 text-white p-4 rounded-t-lg flex justify-between items-center">
-                <h3 class="font-bold text-lg">SwingBro Assistant</h3>
+                <h3 class="font-bold text-lg">SwinGo Assistant</h3>
                 <button id="chat-close" class="text-emerald-100 hover:text-white">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
@@ -829,7 +1081,7 @@
                 <!-- Initial Bot Message -->
                 <div class="chat-message bot">
                     <p class="bg-gray-200 text-gray-800 p-3 rounded-lg max-w-xs">
-                        Hello! How can I help you with SwingBro today?
+                        Hello! How can I help you with SwinGo today?
                     </p>
                 </div>
             </div>
@@ -852,6 +1104,21 @@
 
             // --- Cart State ---
             let cart = [];
+            // --- Quiz State ---
+            let userFault = '';
+            const faultText = {
+                slice: "Slicing",
+                hook: "Hooking",
+                tempo: "Bad Tempo",
+                consistency: "Consistency"
+            };
+            const resultText = {
+                slice: "This is often caused by an open clubface or an 'over-the-top' swing path. SwinGo's instant haptic feedback will buzz the moment your wrist angle is off, building the muscle memory to keep it square.",
+                hook: "This usually comes from over-active hands or 'flipping' your wrists at impact. The glove's sensor can detect this and provide real-time feedback to quiet your hands and promote a better body rotation.",
+                tempo: "Rushing from the top is the #1 problem for beginners! Our app has a 'Tempo Mode' that gives you a simple buzz if your backswing-to-downswing ratio (e.g., 3:1) is off, training you to be smooth.",
+                consistency: "This is the ultimate goal! Our glove helps you repeat the same, correct motions swing after swing. You can track your improvement in the app's 'Session Summary' and 'Consistency Score'."
+            };
+
 
             // --- Selectors ---
             const navLinks = document.querySelectorAll('.nav-link');
@@ -864,7 +1131,9 @@
             const cartTotalEl = document.getElementById('cart-total');
             const cartEmptyMessage = document.getElementById('cart-empty-message');
             const cartSummary = document.getElementById('cart-summary');
-
+            const quizChoices = document.querySelectorAll('.quiz-choice');
+            const quizSteps = document.querySelectorAll('.quiz-step');
+            
             // --- Cart Functions ---
             function updateCartCount() {
                 cartCountEls.forEach(el => {
@@ -951,11 +1220,6 @@
 
 
             // --- Navigation Logic ---
-            // const navLinks = document.querySelectorAll('.nav-link');
-            // const views = document.querySelectorAll('.view');
-            // const mobileMenu = document.getElementById('mobile-menu');
-            // const mobileMenuButton = document.getElementById('mobile-menu-button');
-
             function navigateTo(targetId) {
                 // Hide all views
                 views.forEach(view => {
@@ -1001,6 +1265,41 @@
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
+
+            // --- NEW: Quiz Logic ---
+            quizChoices.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const currentStepEl = e.target.closest('.quiz-step');
+                    const nextStepId = e.target.closest('.quiz-choice').dataset.next;
+                    
+                    // Store fault data if it exists
+                    const fault = e.target.closest('.quiz-choice').dataset.fault;
+                    if (fault) {
+                        userFault = fault;
+                    }
+
+                    // Highlight selected choice
+                    currentStepEl.querySelectorAll('.quiz-choice').forEach(btn => btn.classList.remove('selected'));
+                    e.target.closest('.quiz-choice').classList.add('selected');
+
+                    // Delay and move to next step
+                    setTimeout(() => {
+                        currentStepEl.classList.remove('active');
+                        const nextStepEl = document.getElementById(nextStepId);
+                        
+                        if (nextStepId === 'quiz-step-result') {
+                            // Populate and show result
+                            document.getElementById('fault-text').textContent = faultText[userFault] || "Your Fault";
+                            document.getElementById('result-text').textContent = resultText[userFault] || "SwinGo can help you build consistency!";
+                        }
+                        
+                        if (nextStepEl) {
+                            nextStepEl.classList.add('active');
+                        }
+                    }, 400);
+                });
+            });
+
 
             // --- Chatbot Logic ---
             const chatToggle = document.getElementById('chat-toggle');
@@ -1061,13 +1360,19 @@
                 const i = input.toLowerCase();
 
                 if (i.includes('hello') || i.includes('hi')) {
-                    return 'Hi there! How can I help? You can ask about "products", "repairs", or "shipping".';
+                    return 'Hi there! How can I help? You can ask about "products", "drills", or "shipping".';
                 }
                 if (i.includes('product')) {
-                    return 'We have the SwingBro Combo Pack for €39.99, plus replacement sensors and gloves. You can see them all on the <a href="#" class="underline nav-link" data-target="products">Products</a> page.';
+                    return 'We have the SwinGo Combo Pack for €39.99, plus replacement sensors and gloves. You can see them all on the <a href="#" class="underline nav-link" data-target="products">Products</a> page.';
+                }
+                if (i.includes('quiz')) {
+                    return 'You can find the "Find Your Fault" quiz on our <a href="#" class="underline nav-link" data-target="home">Home</a> page!';
+                }
+                if (i.includes('drill')) {
+                    return 'We have a great "Drill of the Week" section. You can see it on the <a href="#" class="underline nav-link" data-target="drills">Drills</a> page.';
                 }
                 if (i.includes('price')) {
-                    return 'Our main product, the SwingBro Combo Pack (Glove + Sensor), is €39.99.';
+                    return 'Our main product, the SwinGo Combo Pack (Glove + Sensor), is €39.99.';
                 }
                 if (i.includes('repair') || i.includes('replacement')) {
                     return 'You can request a repair or replacement on our <a href="#" class="underline nav-link" data-target="services">Services</a> page.';
@@ -1085,7 +1390,7 @@
                     return 'You\'re welcome! Let me know if you need anything else.';
                 }
 
-                return "Sorry, I'm not quite sure about that. Try asking about 'products' or 'repairs'.";
+                return "Sorry, I'm not quite sure about that. Try asking about 'products' or 'drills'.";
             }
             
             // Re-bind nav links inside chat
